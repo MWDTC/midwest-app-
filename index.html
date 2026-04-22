@@ -1,3 +1,41 @@
+<div class="card">
+  <h3>What Do You Have?</h3>
+  <p>Tap your items below and send for a fast quote</p>
+
+  <div class="options">
+    <label><input type="checkbox" value="Accu-Chek Test Strips"> Accu-Chek</label><br>
+    <label><input type="checkbox" value="FreeStyle Test Strips"> FreeStyle</label><br>
+    <label><input type="checkbox" value="Contour Test Strips"> Contour</label><br>
+    <label><input type="checkbox" value="OneTouch Test Strips"> OneTouch</label><br>
+    <label><input type="checkbox" value="Dexcom G6/G7"> Dexcom</label><br>
+    <label><input type="checkbox" value="Omnipod Pods"> Omnipod</label><br>
+  </div>
+
+  <br>
+
+  <button onclick="sendText()" class="btn">Send for Quote 💰</button>
+</div>
+
+<script>
+function sendText() {
+  let checked = document.querySelectorAll('input[type=checkbox]:checked');
+  let items = [];
+
+  checked.forEach((box) => {
+    items.push(box.value);
+  });
+
+  if(items.length === 0){
+    alert("Select at least one item");
+    return;
+  }
+
+  let message = "Hi, I have: " + items.join(", ") + ". Can I get a quote?";
+  let phone = "2177256787";
+
+  window.location.href = "sms:" + phone + "?body=" + encodeURIComponent(message);
+}
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
