@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midwest Diabetic Teststrip Club</title>
+  <style>
+    :root{
+      --bg:#0a0a0a;
+      --card:#151515;
+      --line:#2c2c2c;
+      --text:#ffffff;
+      --muted:#b3b3b3;
+      --red:#ff2d3d;
+      --red-dark:#d91e2d;
+      --green:#2ecc71;
+      --gold:#f6c453;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#080808 0%, #121212 100%);
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
+    }
+    .container{
+      max-width:560px;
+      margin:auto;
+      padding:16px 14px 40px;
+    }
+    .hero{
+      background:linear-gradient(160deg, rgba(255,45,61,.18), rgba(0,0,0,0) 45%), var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:0 10px 28px rgba(0,0,0,.28);
+    }
+    .brand-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:16px;
+      background:linear-gradient(180deg,var(--red),var(--red-dark));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      font-weight:800;
+      box-shadow:0 10px 24px rgba(255,45,61,.28);
+    }
+    h1{
+      margin:0;
+      font-size:30px;
+      line-height:1.02;
+    }
+    .accent{color:var(--red)}
+    .sub{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+      margin-top:10px;
+    }
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+    .badge{
+      background:#111;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 11px;
+      font-size:12px;
+      color:#f3f3f3;
+    }
+    .section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      margin-top:14px;
+    }
+    .section h2{
+      margin:0 0 10px;
+      font-size:20px;
+    }
+    .muted{
+      color:var(--muted);
+      font-size:14px;
+    }
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .step{
+      background:#111;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:12px 10px;
+      text-align:center;
+      min-height:110px;
+    }
+    .step .icon{
+      font-size:24px;
+      margin-bottom:6px;
+    }
+    .step b{
+      display:block;
+      font-size:14px;
+      margin-bottom:4px;
+    }
+    .step small{
+      color:var(--muted);
+      line-height:1.35;
+      font-size:12px;
+    }
+    .pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:12px;
+    }
+    .pill{
+      background:#111;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:9px 12px;
+      font-size:13px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      color:#ddd;
+      margin:0 0 6px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding:13px 14px;
+      border-radius:14px;
+      border:1px solid #2b2b2b;
+      background:#0f0f0f;
+      color:#fff;
+      font-size:16px;
+      outline:none;
+    }
+    textarea{
+      min-height:96px;
+      resize:vertical;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color:var(--red);
+      box-shadow:0 0 0 3px rgba(255,45,61,.12);
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .field{margin-top:12px}
+    .upload{
+      background:#111;
+      border:1.5px dashed #4b4b4b;
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+    }
+    .thumbs{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+    .thumb{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#0d0d0d;
+    }
+    .btn{
+      width:100%;
+      padding:15px 16px;
+      border:none;
+      border-radius:16px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:10px;
+    }
+    .btn-primary{
+      background:linear-gradient(180deg,var(--red),var(--red-dark));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(255,45,61,.24);
+    }
+    .btn-secondary{
+      background:#202020;
+      color:#fff;
+      border:1px solid var(--line);
+    }
+    .btn-ghost{
+      background:#111;
+      color:#fff;
+      border:1px solid var(--line);
+    }
+    .summary, .estimate, .status{
+      background:#101010;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      margin-top:12px;
+      white-space:pre-wrap;
+      line-height:1.5;
+      font-size:14px;
+      display:none;
+    }
+    .estimate strong{color:var(--gold)}
+    .status strong{color:var(--green)}
+    .footer{
+      text-align:center;
+      color:#9a9a9a;
+      font-size:13px;
+      margin-top:14px;
+      line-height:1.5;
+    }
+    .tiny{
+      font-size:12px;
+      color:#8d8d8d;
+    }
+    @media (max-width:640px){
+      .steps,.grid-2,.thumbs{grid-template-columns:1fr}
+      h1{font-size:26px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div class="brand-row">
+        <div class="logo">$</div>
+        <div>
+          <div class="tiny" style="letter-spacing:1px;text-transform:uppercase;">Simple • Safe • Fast</div>
+          <h1>Midwest Diabetic <span class="accent">Teststrip Club</span></h1>
+        </div>
+      </div>
+      <div class="sub">A one-screen web app for quote requests. Sellers can enter their info, preview their message, text you, email you, and keep everything clean and easy from their phone.</div>
+      <div class="badges">
+        <div class="badge">217-725-6787</div>
+        <div class="badge">dobizk55@gmail.com</div>
+        <div class="badge">Same Day Quotes</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What we buy</h2>
+      <div class="muted">Best for sealed, clean, unexpired products in good condition.</div>
+      <div class="pills">
+        <div class="pill">Test Strips</div>
+        <div class="pill">Dexcom G6 / G7</div>
+        <div class="pill">Omnipod / Omnipod 5</div>
+        <div class="pill">Factory Sealed</div>
+        <div class="pill">Unexpired</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="icon">📸</div>
+          <b>1. Submit Info</b>
+          <small>Add product details and photos.</small>
+        </div>
+        <div class="step">
+          <div class="icon">💬</div>
+          <b>2. Get Quote</b>
+          <small>Preview and send your request fast.</small>
+        </div>
+        <div class="step">
+          <div class="icon">💵</div>
+          <b>3. Get Paid</b>
+          <small>Set pickup or shipping after approval.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Request a quote</h2>
+      <div class="muted">Fill this out, then text or email it instantly.</div>
+
+      <div class="field">
+        <label for="name">Full name</label>
+        <input id="name" placeholder="Your name">
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" placeholder="Your phone number">
+        </div>
+        <div class="field">
+          <label for="city">City / State</label>
+          <input id="city" placeholder="Springfield, IL">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="product">Product type</label>
+          <select id="product">
+            <option value="">Select product</option>
+            <option>Test Strips</option>
+            <option>Dexcom G6</option>
+            <option>Dexcom G7</option>
+            <option>Omnipod</option>
+            <option>Omnipod 5</option>
+            <option>Other diabetic supplies</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="brand">Brand</label>
+          <input id="brand" placeholder="OneTouch, FreeStyle, Accu-Chek...">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="qty">Quantity</label>
+          <input id="qty" type="number" min="1" placeholder="How many boxes?">
+        </div>
+        <div class="field">
+          <label for="exp">Expiration date</label>
+          <input id="exp" placeholder="MM/YYYY or exact date">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="condition">Condition</label>
+          <select id="condition">
+            <option value="">Select condition</option>
+            <option>Sealed</option>
+            <option>Opened</option>
+            <option>Damaged</option>
+            <option>Not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="preferred">Preferred contact</label>
+          <select id="preferred">
+            <option value="">Select one</option>
+            <option>Text</option>
+            <option>Call</option>
+            <option>Email</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="photos">Upload box photos</label>
+        <div class="upload">
+          <input id="photos" type="file" accept="image/*" multiple>
+          <div class="tiny" id="fileText" style="margin-top:10px;">No images selected yet.</div>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="notes">Extra notes</label>
+        <textarea id="notes" placeholder="Add anything else here..."></textarea>
+      </div>
+
+      <button class="btn btn-primary" onclick="sendText()">Text Quote Request</button>
+      <button class="btn btn-secondary" onclick="sendEmail()">Email Quote Request</button>
+      <button class="btn btn-ghost" onclick="previewMessage()">Preview Message</button>
+      <button class="btn btn-ghost" onclick="copyMessage()">Copy Message</button>
+      <button class="btn btn-ghost" onclick="estimateValue()">Quick Estimate</button>
+      <button class="btn btn-ghost" onclick="clearForm()">Clear Form</button>
+
+      <div class="estimate" id="estimateBox"></div>
+      <div class="summary" id="summaryBox"></div>
+      <div class="status" id="statusBox"></div>
+
+      <div class="tiny" style="margin-top:12px;">
+        Photo uploads stay on the seller's device unless they attach them manually when sending a text or email.
+      </div>
+    </section>
+
+    <div class="footer">
+      Midwest Diabetic Teststrip Club<br>
+      217-725-6787 • dobizk55@gmail.com
+    </div>
+  </div>
+
+  <script>
+    const photosInput = document.getElementById("photos");
+    const fileText = document.getElementById("fileText");
+    const thumbs = document.getElementById("thumbs");
+    const estimateBox = document.getElementById("estimateBox");
+    const summaryBox = document.getElementById("summaryBox");
+    const statusBox = document.getElementById("statusBox");
+
+    photosInput.addEventListener("change", function() {
+      thumbs.innerHTML = "";
+      const files = Array.from(this.files || []);
+      fileText.textContent = files.length
+        ? files.length + " image" + (files.length > 1 ? "s" : "") + " selected."
+        : "No images selected yet.";
+
+      files.slice(0, 6).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.className = "thumb";
+          thumbs.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function buildMessage() {
+      const photoCount = photosInput.files.length ? photosInput.files.length + " photo(s) selected" : "No photos selected";
+      return "Quote Request - Midwest Diabetic Teststrip Club\n\n" +
+        "Name: " + (getValue("name") || "-") + "\n" +
+        "Phone: " + (getValue("phone") || "-") + "\n" +
+        "City/State: " + (getValue("city") || "-") + "\n" +
+        "Product: " + (getValue("product") || "-") + "\n" +
+        "Brand: " + (getValue("brand") || "-") + "\n" +
+        "Quantity: " + (getValue("qty") || "-") + "\n" +
+        "Expiration: " + (getValue("exp") || "-") + "\n" +
+        "Condition: " + (getValue("condition") || "-") + "\n" +
+        "Preferred Contact: " + (getValue("preferred") || "-") + "\n" +
+        "Photos: " + photoCount + "\n" +
+        "Notes: " + (getValue("notes") || "-");
+    }
+
+    function previewMessage() {
+      summaryBox.style.display = "block";
+      summaryBox.textContent = buildMessage();
+      statusBox.style.display = "none";
+    }
+
+    function copyMessage() {
+      navigator.clipboard.writeText(buildMessage()).then(() => {
+        statusBox.style.display = "block";
+        statusBox.innerHTML = "<strong>Copied.</strong> Your message is ready to paste.";
+      }).catch(() => {
+        statusBox.style.display = "block";
+        statusBox.innerHTML = "<strong>Could not copy automatically.</strong> Use Preview Message and copy it manually.";
+      });
+    }
+
+    function sendText() {
+      const message = encodeURIComponent(buildMessage());
+      window.location.href = "sms:2177256787?body=" + message;
+    }
+
+    function sendEmail() {
+      const subject = encodeURIComponent("Quote Request - Midwest Diabetic Teststrip Club");
+      const body = encodeURIComponent(buildMessage());
+      window.location.href = "mailto:dobizk55@gmail.com?subject=" + subject + "&body=" + body;
+    }
+
+    function estimateValue() {
+      const product = getValue("product").toLowerCase();
+      const condition = getValue("condition").toLowerCase();
+      const qty = parseInt(getValue("qty"), 10) || 0;
+
+      let low = 0;
+      let high = 0;
+
+      if (product.includes("test strips")) {
+        low = 15;
+        high = 40;
+      } else if (product.includes("dexcom")) {
+        low = 25;
+        high = 70;
+      } else if (product.includes("omnipod")) {
+        low = 20;
+        high = 60;
+      } else {
+        low = 10;
+        high = 35;
+      }
+
+      if (condition === "opened" || condition === "damaged") {
+        low = 0;
+        high = 10;
+      }
+
+      const totalLow = low * qty;
+      const totalHigh = high * qty;
+
+      estimateBox.style.display = "block";
+      estimateBox.innerHTML =
+        "<strong>Quick Estimate</strong>\n\n" +
+        "This is just a rough estimate based on product type, quantity, and condition.\n\n" +
+        "Estimated range: $" + totalLow + " - $" + totalHigh + "\n\n" +
+        "Final quote depends on brand, exact expiration date, and box condition.";
+    }
+
+    function clearForm() {
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("city").value = "";
+      document.getElementById("product").value = "";
+      document.getElementById("brand").value = "";
+      document.getElementById("qty").value = "";
+      document.getElementById("exp").value = "";
+      document.getElementById("condition").value = "";
+      document.getElementById("preferred").value = "";
+      document.getElementById("notes").value = "";
+      photosInput.value = "";
+      thumbs.innerHTML = "";
+      fileText.textContent = "No images selected yet.";
+      estimateBox.style.display = "none";
+      summaryBox.style.display = "none";
+      statusBox.style.display = "none";
+    }
+  </script>
+</body>
+</html>
