@@ -72,6 +72,17 @@ h2 {font-size:20px;margin-bottom:10px;}
   text-align:center;
   font-size:12px;
 }
+
+.other-input {
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  margin-top:8px;
+  background:#111;
+  color:#fff;
+  font-size:14px;
+}
 </style>
 </head>
 
@@ -79,7 +90,6 @@ h2 {font-size:20px;margin-bottom:10px;}
 
 <div class="container">
 
-<!-- HERO -->
 <div class="section">
   <h1>Midwest Diabetic <span style="color:#ff2d3d;">Teststrip Club</span></h1>
   <p class="muted">Turn unused supplies into cash — fast, safe, local.</p>
@@ -93,7 +103,6 @@ h2 {font-size:20px;margin-bottom:10px;}
   <button class="btn" onclick="quickText()">Get Quote Now 💰</button>
 </div>
 
-<!-- WHAT WE BUY -->
 <div class="section">
   <h2>What we buy</h2>
   <p class="muted">Sealed & unexpired supplies only.</p>
@@ -105,7 +114,6 @@ h2 {font-size:20px;margin-bottom:10px;}
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <div class="section">
   <h2>How it works</h2>
   <div class="steps">
@@ -115,7 +123,6 @@ h2 {font-size:20px;margin-bottom:10px;}
   </div>
 </div>
 
-<!-- WHAT DO YOU HAVE -->
 <div class="section">
   <h2>What do you have?</h2>
   <p class="muted">Select items and send for a quote.</p>
@@ -127,10 +134,16 @@ h2 {font-size:20px;margin-bottom:10px;}
   <label class="option"><input type="checkbox" value="Dexcom G6/G7"> Dexcom</label>
   <label class="option"><input type="checkbox" value="Omnipod Pods"> Omnipod</label>
 
+  <input
+    type="text"
+    id="otherItem"
+    class="other-input"
+    placeholder="Other item not listed?"
+  >
+
   <button class="btn" onclick="sendText()">Send for Quote 💰</button>
 </div>
 
-<!-- FOOTER -->
 <div class="section">
   <p style="text-align:center;">
     ✔ No prescription needed<br>
@@ -153,8 +166,13 @@ function sendText() {
     items.push(box.value);
   });
 
+  let otherItem = document.getElementById("otherItem").value.trim();
+  if (otherItem) {
+    items.push(otherItem);
+  }
+
   if(items.length === 0){
-    alert("Select at least one item");
+    alert("Select or type at least one item");
     return;
   }
 
